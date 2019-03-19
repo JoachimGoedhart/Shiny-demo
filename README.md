@@ -9,6 +9,9 @@ It is also possible to compare the changes in the code between different version
 ![alt text](https://github.com/JoachimGoedhart/Shiny-demo/blob/master/Compare-versions.png "Output")
 
 To run the different Updates from R/Rstudio use:
+
 shiny::runGitHub('Shiny-demo', 'JoachimGoedhart', ref="Update_1")
+
 shiny::runGitHub('Shiny-demo', 'JoachimGoedhart', ref="Update_2")
+
 ......and so on.....
