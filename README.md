@@ -4,6 +4,8 @@ Step-by-step instructions for building a Shiny app, startimg with a histogram th
 Changes and new features are added and the code can be obtained by selecting new branches (Update_1, Update_2 and so forth).
 It is also possible to compare the changes differences between versions.
 
+![alt text](https://github.com/JoachimGoedhart/Shiny-demo/blob/master/Compare-versions.png "Output")
+
 To run the different Updates from R/Rstudio use:
 shiny::runGitHub('Shiny-demo', 'JoachimGoedhart', ref="Update_1")
 shiny::runGitHub('Shiny-demo', 'JoachimGoedhart', ref="Update_2")
