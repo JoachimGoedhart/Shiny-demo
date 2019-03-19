@@ -23,7 +23,8 @@ ui <- fluidPage(
                      "Number of bins:",
                      min = 1,
                      max = 50,
-                     value = 30)
+                     value = 30),
+         checkboxInput("show_histogram", "Show plot?", FALSE)
       ),
       
       # Show a plot of the generated distribution
@@ -42,6 +43,10 @@ server <- function(input, output) {
 
           p <- ggplot(data = geyser_data, aes(x=waiting))
      
+      if (input$show_histogram) {
+        p <- p + geom_histogram()
+      }
+          
      return(p)
      
    })
