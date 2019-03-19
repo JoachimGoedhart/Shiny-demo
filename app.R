@@ -24,6 +24,11 @@ ui <- fluidPage(
                      min = 1,
                      max = 50,
                      value = 30),
+         sliderInput("alpha",
+                     "Tranparency:",
+                     min = 0,
+                     max = 1,
+                     value = 0.8),
          checkboxInput("show_histogram", "Show plot?", FALSE)
       ),
       
@@ -44,7 +49,7 @@ server <- function(input, output) {
           p <- ggplot(data = geyser_data, aes(x=waiting))
      
       if (input$show_histogram) {
-        p <- p + geom_histogram()
+          p <- p + geom_histogram(bins = input$bins, alpha=input$alpha)
       }
           
      return(p)
