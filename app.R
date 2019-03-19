@@ -19,6 +19,8 @@ ui <- fluidPage(
    # Sidebar with a slider input for number of bins 
    sidebarLayout(
       sidebarPanel(
+        checkboxInput("show_histogram", "Show plot?", FALSE),
+        conditionalPanel(condition="input.show_histogram == true",
          sliderInput("bins",
                      "Number of bins:",
                      min = 1,
@@ -28,8 +30,8 @@ ui <- fluidPage(
                      "Tranparency:",
                      min = 0,
                      max = 1,
-                     value = 0.8),
-         checkboxInput("show_histogram", "Show plot?", FALSE)
+                     value = 0.8))
+         
       ),
       
       # Show a plot of the generated distribution
