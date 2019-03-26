@@ -8,21 +8,35 @@
 #
 
 library(shiny)
+library(ggplot2)
+library(tidyr)
+library(magrittr)
+
+df <- read.csv("Area_in_um-GEFs.csv", na.strings = "")
+df_tidy <- df  %>% gather(Condition, Value)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
    
    # Application title
-   titlePanel("Old Faithful Geyser Data"),
+  titlePanel("Shiny Demo"),
    
    # Sidebar with a slider input for number of bins 
    sidebarLayout(
       sidebarPanel(
+        checkboxInput("show_histogram", "Show plot?", FALSE),
+        conditionalPanel(condition="input.show_histogram == true",
          sliderInput("bins",
                      "Number of bins:",
                      min = 1,
                      max = 50,
-                     value = 30)
+                     value = 30),
+         sliderInput("alpha",
+                     "Tranparency:",
+                     min = 0,
+                     max = 1,
+                     value = 0.8))
+         
       ),
       
       # Show a plot of the generated distribution
@@ -36,14 +50,21 @@ ui <- fluidPage(
 server <- function(input, output) {
    
    output$distPlot <- renderPlot({
-      # generate bins based on input$bins from ui.R
-      x    <- faithful[, 2] 
-      bins <- seq(min(x), max(x), length.out = input$bins + 1)
       
-      # draw the histogram with the specified number of bins
-      hist(x, breaks = bins, col = 'darkgray', border = 'white')
+     geyser_data <- data.frame(waiting=faithful$waiting)
+
+     #     p <- ggplot(data = geyser_data, aes(x=waiting))
+     p <- ggplot(data = df_tidy, aes(x=Value, fill=Condition))
+     
+      if (input$show_histogram) {
+          p <- p + geom_histogram(bins = input$bins, alpha=input$alpha)
+      }
+          
+     return(p)
+     
    })
 }
+
 
 # Run the application 
 shinyApp(ui = ui, server = server)
